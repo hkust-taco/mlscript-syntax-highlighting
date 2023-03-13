@@ -2,6 +2,11 @@
   "name": "mlscript-syntax-highlight",
   "displayName": "MLscript Syntax Highlight",
   "description": "Simple syntax highlight for MLscript.",
+  "publisher": "chengluyu",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/chengluyu/mlscript-syntax-highlight"
+  },
   "version": "0.0.1",
   "scripts": {
     "build": "js-yaml syntaxes/mlscript.tmLanguage.yaml > syntaxes/mlscript.tmLanguage.json"
@@ -36,5 +41,6 @@
   },
   "devDependencies": {
     "js-yaml": "^4.1.0"
-  }
+  },
+  "license": "MIT"
 }
