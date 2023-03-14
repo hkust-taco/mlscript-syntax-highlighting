@@ -15,7 +15,8 @@
     "vscode": "^1.76.0"
   },
   "categories": [
-    "Programming Languages"
+    "Programming Languages",
+    "Snippets"
   ],
   "contributes": {
     "languages": [
@@ -37,7 +38,13 @@
         "scopeName": "source.mlscript",
         "path": "./syntaxes/mlscript.tmLanguage.json"
       }
-    ]
+    ],
+    "snippets": [
+			{
+				"language": "mlscript",
+				"path": "./snippets/snippets.json"
+			}
+		]
   },
   "devDependencies": {
     "js-yaml": "^4.1.0"

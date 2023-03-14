@@ -1,0 +1,12 @@
+{
+  "Function Declarations": {
+    "prefix": "fun",
+    "body": ["fun $1($2) = $3"],
+    "description": "Function declarations"
+  },
+	"Class Declarations": {
+		"prefix": "class",
+		"body": ["class $1($2)"],
+		"description": "Class declarations"
+	}
+}

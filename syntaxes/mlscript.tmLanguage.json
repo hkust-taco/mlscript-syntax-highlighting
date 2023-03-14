@@ -24,8 +24,6 @@
       "include": "#diffTestFlags"
     }
   ],
-  "foldingStartMarker": "^//│ ╔══\\[(?=ERROR|WARNING)\\].*$",
-  "foldingStopMarker": "^//│ ╙──.*$",
   "repository": {
     "variables": {
       "patterns": [
@@ -69,7 +67,7 @@
               "name": "entity.name.type.mlscript"
             },
             {
-              "match": "\\banything|nothing|string|int|number|bool\\b",
+              "match": "\\b(?:anything|nothing|string|int|number|bool)\\b",
               "name": "entity.name.type.mlscript"
             },
             {
@@ -105,6 +103,14 @@
       "begin": "\"",
       "end": "\"",
       "patterns": [
+        {
+          "name": "constant.character.escape.mlscript",
+          "match": "\\\\u\\d{4}"
+        },
+        {
+          "name": "constant.character.escape.mlscript",
+          "match": "\\\\x[0-9a-fA-F]{2}"
+        },
         {
           "name": "constant.character.escape.mlscript",
           "match": "\\\\."
