@@ -45,7 +45,7 @@ repository:
     - name: keyword.control.mlscript
       match: "\\b(let|of|is|extends|this)\\b"
     - name: keyword.control.conditional.mlscript
-      match: "\\b(if|and|then|else)\\b"
+      match: "\\b(if|and|or|then|else)\\b"
     - name: keyword.constant.bool.mlscript
       match: "\\b(true|false)\\b"
   strings:

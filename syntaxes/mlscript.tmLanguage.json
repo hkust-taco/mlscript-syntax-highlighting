@@ -90,7 +90,7 @@
         },
         {
           "name": "keyword.control.conditional.mlscript",
-          "match": "\\b(if|and|then|else)\\b"
+          "match": "\\b(if|and|or|then|else)\\b"
         },
         {
           "name": "keyword.constant.bool.mlscript",
