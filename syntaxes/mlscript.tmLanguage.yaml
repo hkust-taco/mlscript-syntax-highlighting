@@ -16,11 +16,13 @@ repository:
     patterns:
     - name: meta.function.declaration.mlscript
       patterns:
-      - match: "\\b(fun)\\s+([_a-zA-Z][_a-zA-Z0-9]*)\\b"
+      - match: "\\b(fun)(?:\\s+\\(([!#%&*+\\-\\/:<=>?@\\\\^|~.;]+)\\))?\\s+([_a-zA-Z][_a-zA-Z0-9]*)\\b"
         captures:
           '1':
             name: storage.type.function.mlscript
           '2':
+            name: entity.name.function.mlscript
+          '3':
             name: entity.name.function.mlscript
     - name: meta.class.declaration.mlscript
       patterns:
