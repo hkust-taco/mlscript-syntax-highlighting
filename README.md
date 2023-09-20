@@ -20,6 +20,35 @@ This extension does not have settings currently.
 
 ## Release Notes
 
+### 0.0.4
+
+#### Additions
+
+- Highlight modifiers `declare` and `virtual` for function declarations.
+- Highlight modifiers `declare`, `private`, `abstract`, and `data` for class
+  declarations.
+- Highlight modifier `private` for trait declarations.
+- Highlight modifiers `declare` and `private` for module declarations.
+- Highlight `mixin` declarations.
+- Highlight keyword `super`.
+- Highlight modifiers `declare` and `virtual` for function declarations.
+- Highlight `val` declarations with modifiers `declare`, `private`, and `lazy`.
+- Highlight `in`/`out` variance modifiers and type variables starting with a 
+  single quote in parameter lists.
+- Highlight field selections. For example, the `size` in `this.size`.
+  Note that the highlighting isn’t based on semantics, it simply matches identifiers after a period.
+
+#### Changes
+
+- Set the scope of `[ERROR]` and `[WARNING]` to `markup.bold` as I found many
+  VSCode themes does not colorize scope `message.error`.
+- Set `this`, `true`, `false`, and `null` to the correct `constant` scope.
+- Do not automatically close single quotations becuase they are also used in
+  variable names and type variable names. (The [`notIn` property of 
+  `autoClosingPairs`][not-in] does not support user-defined scope names.)
+
+[not-in]: https://code.visualstudio.com/api/language-extensions/language-configuration-guide#autoclosing
+
 ### 0.0.3
 
 - Highlight functions with user-defined symbolic operators ([#177][pr-177]).

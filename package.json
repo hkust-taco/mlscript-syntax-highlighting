@@ -7,7 +7,7 @@
     "type": "git",
     "url": "https://github.com/chengluyu/mlscript-syntax-highlight"
   },
-  "version": "0.0.3",
+  "version": "0.0.4",
   "scripts": {
     "build": "js-yaml syntaxes/mlscript.tmLanguage.yaml > syntaxes/mlscript.tmLanguage.json"
   },
