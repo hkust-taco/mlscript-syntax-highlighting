@@ -20,6 +20,23 @@ This extension does not have settings currently.
 
 ## Release Notes
 
+### 0.0.5
+
+#### Features
+
+- Support hexidecimal, octal, and binary integer literals. [#199][pr-199]
+- Support floating-point decimal literals. [#199][pr-199]
+
+[pr-199]: https://github.com/hkust-taco/mlscript/pull/199
+
+#### Fix
+
+- The rule for parameter lists should not be at top-level.
+- Highlight some keywords even they are not in a valid declaration.
+- Highlight keyword `rec`.
+- Highlight normal variables.
+
+
 ### 0.0.4
 
 #### Additions

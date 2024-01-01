@@ -9,8 +9,9 @@ patterns:
 - include: "#diffTestComments"
 - include: "#comments"
 - include: "#diffTestFlags"
-- include: "#type-parameter-list"
 - include: "#field-selection"
+- include: "#identifiers"
+- include: "#operators"
 # foldingStartMarker: "^//│ ╔══\\[(?:ERROR|WARNING)\\].*$"
 # foldingStopMarker: "^//│ ╙──.*$"
 repository:
@@ -44,7 +45,7 @@ repository:
             name: entity.name.function.mlscript
     - name: meta.class.declaration.mlscript
       patterns:
-      - match: "\\b(?:(declare)\\s+)?(?:(private)\\s+)?(?:(abstract|data)\\s+)?(class)\\s+([_A-Z][_a-zA-Z0-9]*)\\b"
+      - match: "\\b(?:(declare)\\s+)?(?:(private)\\s+)?(?:(abstract|data)\\s+)?(class)\\s+([_A-Z][_a-zA-Z0-9]*)\\b\\s*(\\[.+?\\])?"
         captures:
           '1': # declare
             name: storage.modifier.other.mlscript
@@ -56,6 +57,10 @@ repository:
             name: keyword.declaration.mlscript
           '5': # *name*
             name: entity.name.class.mlscript
+          '6': # (optional) parameter list
+            name: meta.type-parameter-list.mlscript
+            patterns:
+            - include: "#type-parameter-list"
     - name: meta.trait.declaration.mlscript
       patterns:
       - match: "\\b(?:(private)\\s+)?(trait)\\s+([_A-Z][_a-zA-Z0-9]*)\\b"
@@ -92,13 +97,23 @@ repository:
         name: entity.name.type.mlscript
       - match: "\\b(?:anything|nothing|string|int|number|bool)\\b"
         name: entity.name.type.mlscript
-      - match: "\\b'[a-zA-Z_][a-zA-Z0-9_]*\\b"
+      - match: "'[a-zA-Z_][a-zA-Z0-9_]*\\b"
         name: entity.name.type.mlscript
   field-selection:
     match: "\\.([_a-zA-Z][_a-zA-Z0-9]*)\\b"
     captures:
       '1':
         name: entity.name.variable.mlscript
+  identifiers:
+    match: "\\b([_a-zA-Z][_a-zA-Z0-9]*)('+|\\b)"
+    captures:
+      '0':
+        name: entity.name.variable.mlscript
+  operators:
+    match: "[!#%&*+\\-/:<=>?@\\\\^|~=\\.<>]+"
+    captures:
+      '1':
+        name: keyword.operator.mlscript
   type-parameter-list:
     begin: "\\["
     beginCaptures:
@@ -123,7 +138,7 @@ repository:
     - name: keyword.structure.mlscript
       match: "\\b(type)\\b"
     - name: keyword.control.mlscript
-      match: "\\b(let|of|is|extends)\\b"
+      match: "\\b(let|rec|of|is|extends)\\b"
     - name: keyword.control.conditional.mlscript
       match: "\\b(if|and|or|then|else)\\b"
     - name: variable.language.mlscript
@@ -134,6 +149,10 @@ repository:
       match: "\\b(val)\\b"
     - name: "constant.language.scala"
       match: "\\b(false|null|true)\\b"
+    - name: keyword.declaration.mlscript
+      match: \\b(trait|class|module|mixin)\\b
+    - name: storage.modifier.other.mlscript
+      match: \\b(declare|private|lazy|virtual|abstract|data)\\b
   strings:
     name: string.quoted.double.mlscript
     begin: "\""
@@ -149,10 +168,18 @@ repository:
     patterns:
     - name: constant.numeric.decimal.mlscript
       match: "\\b[0-9][0-9_]*\\b"
+    - name: constant.numeric.hexadecimal.mlscript
+      match: "\\b0x[0-9a-fA-F][0-9a-fA-F_]*\\b"
+    - name: constant.numeric.binary.mlscript
+      match: "\\b0b[01][01_]*\\b"
+    - name: constant.numeric.octal.mlscript
+      match: "\\b0o[0-7][0-7_]*\\b"
+    - name: constant.numeric.decimal.mlscript
+      match: "\\b[0-9][0-9_]*(\\.[0-9][0-9_]*)?([Ee][+-]?[0-9][0-9_]*)?\\b"
   comments:
     patterns:
     - name: comment.line.DiffTests.flag.mlscript
-      match: "^:(\\w+)$"
+      match: "^:([\\w:,]+)$"
       captures:
         "1":
           name: markup.italic
