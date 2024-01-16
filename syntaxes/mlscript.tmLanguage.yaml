@@ -8,7 +8,6 @@ patterns:
 - include: "#numbers"
 - include: "#diffTestComments"
 - include: "#comments"
-- include: "#diffTestFlags"
 - include: "#field-selection"
 - include: "#identifiers"
 - include: "#operators"
@@ -19,7 +18,7 @@ repository:
     patterns:
     - name: meta.variable.declaration.mlscript
       patterns:
-      - match: "\\b(?:(declare)\\s+)?(?:(private)\\s+)?(?:(lazy)\\s+)?(val)\\s+([_a-zA-Z][_a-zA-Z0-9]*)\\b"
+      - match: "\\b(?:(declare)\\s+)?(?:(private)\\s+)?(?:(lazy)\\s+)?(val)\\s+([_a-zA-Z][_a-zA-Z0-9]*(?:'+|\\b))"
         captures:
           '1': # declare
             name: storage.modifier.other.mlscript
@@ -33,7 +32,7 @@ repository:
             name: entity.name.variable.mlscript
     - name: meta.function.declaration.mlscript
       patterns:
-      - match: "\\b(?:(virtual|declare)\\s+)?(fun)(?:\\s+\\(([!#%&*+\\-\\/:<=>?@\\\\^|~.;]+)\\))?\\s+([_a-zA-Z][_a-zA-Z0-9]*)\\b"
+      - match: "\\b(?:(virtual|declare)\\s+)?(fun)(?:\\s+\\(([!#%&*+\\-\\/:<=>?@\\\\^|~.;]+)\\))?\\s+([_a-zA-Z][_a-zA-Z0-9]*(?:'+|\\b))"
         captures:
           '1': # declare or virtual --- I don’t believe they will appear concurrently.
             name: storage.modifier.other.mlscript
@@ -45,7 +44,7 @@ repository:
             name: entity.name.function.mlscript
     - name: meta.class.declaration.mlscript
       patterns:
-      - match: "\\b(?:(declare)\\s+)?(?:(private)\\s+)?(?:(abstract|data)\\s+)?(class)\\s+([_A-Z][_a-zA-Z0-9]*)\\b\\s*(\\[.+?\\])?"
+      - match: "\\b(?:(declare)\\s+)?(?:(private)\\s+)?(?:(abstract|data)\\s+)?(class)\\s+([_A-Z][_a-zA-Z0-9]*(?:'+|\\b))\\s*(\\[.+?\\])?"
         captures:
           '1': # declare
             name: storage.modifier.other.mlscript
@@ -63,7 +62,7 @@ repository:
             - include: "#type-parameter-list"
     - name: meta.trait.declaration.mlscript
       patterns:
-      - match: "\\b(?:(private)\\s+)?(trait)\\s+([_A-Z][_a-zA-Z0-9]*)\\b"
+      - match: "\\b(?:(private)\\s+)?(trait)\\s+([_A-Z][_a-zA-Z0-9]*(?:'+|\\b))"
         captures:
           '1': # private
             name: storage.modifier.access.mlscript
@@ -73,7 +72,7 @@ repository:
             name: entity.name.class.mlscript
     - name: meta.module.declaration.mlscript
       patterns:
-      - match: "\\b(?:(declare)\\s+)?(?:(private)\\s+)?(module)\\s+([_A-Z][_a-zA-Z0-9]*)\\b"
+      - match: "\\b(?:(declare)\\s+)?(?:(private)\\s+)?(module)\\s+([_A-Z][_a-zA-Z0-9]*(?:'+|\\b))"
         captures:
           '1': # declare
             name: storage.modifier.other.mlscript
@@ -85,7 +84,7 @@ repository:
             name: entity.name.class.mlscript
     - name: meta.mixin.declaration.mlscript
       patterns:
-      - match: "\\b(mixin)\\s+([_A-Z][_a-zA-Z0-9]*)\\b"
+      - match: "\\b(mixin)\\s+([_A-Z][_a-zA-Z0-9]*(?:'+|\\b))"
         captures:
           '1':
             name: keyword.declaration.mlscript
@@ -93,7 +92,7 @@ repository:
             name: entity.name.class.mlscript
     - name: meta.variable.mlscript
       patterns:
-      - match: "\\b[A-Z][a-zA-Z0-9]*\\b"
+      - match: "\\b[A-Z][a-zA-Z0-9]*(?:'+|\\b)"
         name: entity.name.type.mlscript
       - match: "\\b(?:anything|nothing|string|int|number|bool)\\b"
         name: entity.name.type.mlscript
@@ -124,6 +123,8 @@ repository:
       '0':
         name: punctuation.definition.type-parameter-list.end.mlscript
     patterns:
+      - match: "\\btype\\b"
+        name: keyword.structure.mlscript
       - match: "\\b(in|out)\\b"
         name: storage.modifier.mlscript
       - match: "\\b[A-Z][a-zA-Z0-9]*\\b"
@@ -179,10 +180,14 @@ repository:
   comments:
     patterns:
     - name: comment.line.DiffTests.flag.mlscript
-      match: "^:([\\w:,]+)$"
+      match: "^(\\:)([\\w:,\\.-]+)"
       captures:
-        "1":
-          name: markup.italic
+        "2":
+          patterns:
+          - match: "\\b([\\w\\.-]+)\\b"
+            captures:
+              "1":
+                name: markup.italic
     - name: comment.line.double-slash.DiffTests.message.opening.mlscript
       begin: "^//│ ╔══(\\[(?:PARSE )?ERROR\\])?(\\[WARNING\\])? (.+)"
       end: "$"

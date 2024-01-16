@@ -20,6 +20,21 @@ This extension does not have settings currently.
 
 ## Release Notes
 
+### 0.0.6
+
+#### Features
+
+- Highlight `type` in `class Foo[type A]`.
+- Highlight nested `DiffTests` flags (e.g. `:ducs:postprocess.result`).
+
+#### Fix
+
+- Include trailing single quotes as a part of entity names.
+- Recognize trailing single quotes as a part of words. So, if you press
+  <kbd>⌥←</kbd> or <kbd>⌥→</kbd>, the editor will select names including the
+  trailing single quotes.
+- Comments can follow `DiffTests` flags.
+
 ### 0.0.5
 
 #### Features
