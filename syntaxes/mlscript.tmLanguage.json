@@ -3,6 +3,9 @@
   "name": "MLscript",
   "patterns": [
     {
+      "include": "#imports"
+    },
+    {
       "include": "#variables"
     },
     {
@@ -31,6 +34,65 @@
     }
   ],
   "repository": {
+    "imports": {
+      "patterns": [
+        {
+          "name": "meta.import.mlscript",
+          "match": "\\b(import)\\s+(\"[^\"]+\")",
+          "captures": {
+            "1": {
+              "name": "keyword.control.import.mlscript"
+            },
+            "2": {
+              "name": "string.quoted.double.mlscript"
+            }
+          }
+        },
+        {
+          "name": "meta.open.declaration.mlscript",
+          "begin": "\\b(open)\\s+([_A-Z][_a-zA-Z0-9]*)",
+          "beginCaptures": {
+            "1": {
+              "name": "keyword.control.open.mlscript"
+            },
+            "2": {
+              "name": "entity.name.type.mlscript"
+            }
+          },
+          "end": "(?=\\s*\\{)|(?=\\s*$)",
+          "patterns": [
+            {
+              "name": "meta.open.brace-list.mlscript",
+              "begin": "\\{",
+              "beginCaptures": {
+                "0": {
+                  "name": "punctuation.section.braces.begin.mlscript"
+                }
+              },
+              "end": "\\}",
+              "endCaptures": {
+                "0": {
+                  "name": "punctuation.section.braces.end.mlscript"
+                }
+              },
+              "patterns": [
+                {
+                  "match": "\\b(_*[A-Z][_a-zA-Z0-9]*)\\b",
+                  "name": "entity.name.type.mlscript"
+                },
+                {
+                  "match": "\\b(_*[a-z][_a-zA-Z0-9]*)\\b",
+                  "name": "entity.name.function.mlscript"
+                },
+                {
+                  "include": "#punctuation-comma"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
     "variables": {
       "patterns": [
         {
@@ -136,7 +198,7 @@
           "name": "meta.module.declaration.mlscript",
           "patterns": [
             {
-              "match": "\\b(?:(declare)\\s+)?(?:(private)\\s+)?(module)\\s+([_A-Z][_a-zA-Z0-9]*(?:'+|\\b))",
+              "match": "\\b(?:(declare)\\s+)?(?:(private)\\s+)?(module|object)\\s+([_A-Z][_a-zA-Z0-9]*(?:'+|\\b))",
               "captures": {
                 "1": {
                   "name": "storage.modifier.other.mlscript"
@@ -255,16 +317,20 @@
     "keywords": {
       "patterns": [
         {
+          "name": "keyword.control.with.mlscript",
+          "match": "\\b(with)\\s+$"
+        },
+        {
           "name": "keyword.structure.mlscript",
           "match": "\\b(type)\\b"
         },
         {
           "name": "keyword.control.mlscript",
-          "match": "\\b(let|rec|of|is|extends)\\b"
+          "match": "\\b(let|set|of|is|extends)\\b"
         },
         {
           "name": "keyword.control.conditional.mlscript",
-          "match": "\\b(if|and|or|then|else)\\b"
+          "match": "\\b(if|while|and|or|then|else|do)\\b"
         },
         {
           "name": "variable.language.mlscript",
@@ -284,7 +350,7 @@
         },
         {
           "name": "keyword.declaration.mlscript",
-          "match": "\\\\b(trait|class|module|mixin)\\\\b"
+          "match": "\\\\b(trait|class|module|object|mixin)\\\\b"
         },
         {
           "name": "storage.modifier.other.mlscript",
@@ -300,6 +366,10 @@
         {
           "name": "constant.character.escape.mlscript",
           "match": "\\\\u\\d{4}"
+        },
+        {
+          "name": "constant.character.escape.mlscript",
+          "match": "\\\\u\\{[0-9a-fA-F]{1,6}\\}"
         },
         {
           "name": "constant.character.escape.mlscript",
@@ -339,7 +409,7 @@
       "patterns": [
         {
           "name": "comment.line.DiffTests.flag.mlscript",
-          "match": "^(\\:)([\\w:,\\.-]+)",
+          "match": "^(\\:)([\\w:, \\.-]+)",
           "captures": {
             "2": {
               "patterns": [
@@ -357,7 +427,7 @@
         },
         {
           "name": "comment.line.double-slash.DiffTests.message.opening.mlscript",
-          "begin": "^//│ ╔══(\\[(?:PARSE )?ERROR\\])?(\\[WARNING\\])? (.+)",
+          "begin": "^//│ (?:╔══|═══)(\\[(?:PARSE |RUNTIME |COMPILATION )?ERROR\\])?(\\[WARNING\\])? (.+)",
           "end": "$",
           "beginCaptures": {
             "1": {
