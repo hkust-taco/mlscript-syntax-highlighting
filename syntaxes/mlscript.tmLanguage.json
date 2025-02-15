@@ -12,6 +12,9 @@
       "include": "#keywords"
     },
     {
+      "include": "#multiline-strings"
+    },
+    {
       "include": "#strings"
     },
     {
@@ -90,6 +93,70 @@
               ]
             }
           ]
+        }
+      ]
+    },
+    "keywords": {
+      "patterns": [
+        {
+          "name": "keyword.control.with.mlscript",
+          "match": "\\b(with)\\s+$"
+        },
+        {
+          "name": "keyword.structure.mlscript",
+          "match": "\\b(type)\\b"
+        },
+        {
+          "name": "keyword.control.mlscript",
+          "match": "\\b(let|set|of|is|extends|as)\\b"
+        },
+        {
+          "name": "keyword.control.conditional.mlscript",
+          "match": "\\b(if|while|and|or|then|else|do)\\b"
+        },
+        {
+          "name": "storage.type.function.mlscript",
+          "match": "\\b(fun)\\b"
+        },
+        {
+          "name": "variable.language.mlscript",
+          "match": "\\b(this|super)\\b"
+        },
+        {
+          "name": "keyword.declaration.mlscript",
+          "match": "\\b(new)\\b"
+        },
+        {
+          "name": "keyword.declaration.mlscript",
+          "match": "\\b(val)\\b"
+        },
+        {
+          "name": "keyword.other.import.mlscript",
+          "match": "\\b(import)\\b"
+        },
+        {
+          "name": "keyword.other.open.mlscript",
+          "match": "\\b(open)\\b"
+        },
+        {
+          "name": "keyword.other.use.mlscript",
+          "match": "\\b(use)\\b"
+        },
+        {
+          "name": "constant.language.scala",
+          "match": "\\b(false|null|true)\\b"
+        },
+        {
+          "name": "keyword.declaration.mlscript",
+          "match": "\\b(trait|class|module|object|mixin|pattern)\\b"
+        },
+        {
+          "name": "storage.modifier.parameter.mlscript",
+          "match": "\\b(using)\\b"
+        },
+        {
+          "name": "storage.modifier.other.mlscript",
+          "match": "\\b(declare|private|lazy|virtual|abstract|data)\\b"
         }
       ]
     },
@@ -314,49 +381,10 @@
       ],
       "scopeName": "meta.type-parameter-list.mlscript"
     },
-    "keywords": {
-      "patterns": [
-        {
-          "name": "keyword.control.with.mlscript",
-          "match": "\\b(with)\\s+$"
-        },
-        {
-          "name": "keyword.structure.mlscript",
-          "match": "\\b(type)\\b"
-        },
-        {
-          "name": "keyword.control.mlscript",
-          "match": "\\b(let|set|of|is|extends)\\b"
-        },
-        {
-          "name": "keyword.control.conditional.mlscript",
-          "match": "\\b(if|while|and|or|then|else|do)\\b"
-        },
-        {
-          "name": "variable.language.mlscript",
-          "match": "\\b(this|super)\\b"
-        },
-        {
-          "name": "keyword.declaration.mlscript",
-          "match": "\\b(new)\\b"
-        },
-        {
-          "name": "keyword.declaration.mlscript",
-          "match": "\\b(val)\\b"
-        },
-        {
-          "name": "constant.language.scala",
-          "match": "\\b(false|null|true)\\b"
-        },
-        {
-          "name": "keyword.declaration.mlscript",
-          "match": "\\\\b(trait|class|module|object|mixin)\\\\b"
-        },
-        {
-          "name": "storage.modifier.other.mlscript",
-          "match": "\\\\b(declare|private|lazy|virtual|abstract|data)\\\\b"
-        }
-      ]
+    "multiline-strings": {
+      "name": "string.quoted.triple.mlscript",
+      "begin": "\"\"\"",
+      "end": "\"\"\""
     },
     "strings": {
       "name": "string.quoted.double.mlscript",
