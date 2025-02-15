@@ -1,0 +1,22 @@
+{
+  "name": "extension",
+  "version": "0.0.1",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build"
+  },
+  "author": "",
+  "license": "MIT",
+  "description": "",
+  "dependencies": {
+    "@types/node": "^22.13.1",
+    "@types/vscode": "^1.97.0",
+    "@vscode/test-electron": "^2.4.1",
+    "typescript": "^5.7.3",
+    "vite": "^6.1.0"
+  },
+  "devDependencies": {
+    "@scala-js/vite-plugin-scalajs": "^1.0.0"
+  }
+}

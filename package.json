@@ -18,6 +18,7 @@
     "Programming Languages",
     "Snippets"
   ],
+  "main": "./dist/extension",
   "contributes": {
     "languages": [
       {
@@ -40,14 +41,18 @@
       }
     ],
     "snippets": [
-			{
-				"language": "mlscript",
-				"path": "./snippets/snippets.json"
-			}
-		]
+      {
+        "language": "mlscript",
+        "path": "./snippets/snippets.json"
+      }
+    ]
   },
   "devDependencies": {
     "js-yaml": "^4.1.0"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "workspaces": [
+    "packages/extension",
+    "packages/ported"
+  ]
 }
