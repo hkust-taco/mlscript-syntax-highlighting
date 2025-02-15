@@ -30,6 +30,12 @@ class MLscriptSymbolProvider(
           symbols.push(symbol)
         case _ =>
           providerLogOutput.warn(s"Failed to add symbol for $name")
+    def processOpen(tree: Tree): Unit = tree match
+      case id @ Tree.Ident(name) =>
+        add(name, "opened module", SymbolKind.Module, id.toLoc, tree.toLoc, js.Array())
+      case Tree.Jux(id @ Tree.Ident(name), body: Tree.Block) =>
+        add(name, "opened module", SymbolKind.Module, id.toLoc, tree.toLoc, js.Array())
+      case _ => ()
     def go(tree: Tree): Unit = tree match
       case Tree.Empty() => ()
       case Tree.Error() => ()
@@ -70,7 +76,7 @@ class MLscriptSymbolProvider(
         providerLogOutput.info(s"kind = $k, name = ${td.name}")
         td.name match
           case Right(id @ Tree.Ident(name)) =>
-            add(name, s"${k.desc} definition", kind, id.toLoc, td.toLoc, js.Array())
+            add(name, k.desc, kind, id.toLoc, td.toLoc, js.Array())
           case Left(_) => ()
       case td @ Tree.TypeDef(k, head, _, body) =>
         providerLogOutput.info(s"TermDef: ${td.describe}")
@@ -86,10 +92,10 @@ class MLscriptSymbolProvider(
         td.name match
           case Right(id @ Tree.Ident(name)) =>
             val children = collectSymbols(Some(k), body.toList)
-            add(name, s"${k.desc} definition", kind, id.toLoc, td.toLoc, children)
+            add(name, k.desc, kind, id.toLoc, td.toLoc, children)
           case Left(_) => ()
-      case Tree.Open(opened) =>
-      case Tree.OpenIn(opened, body) =>
+      case Tree.Open(opened) => processOpen(opened)
+      case Tree.OpenIn(opened, body) => processOpen(opened)
       case Tree.DynAccess(obj, fld, arrayIdx) => ()
       case Tree.Modified(modifier, modLoc, body) => go(body)
       case Tree.Quoted(body) => ()
